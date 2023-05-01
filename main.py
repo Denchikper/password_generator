@@ -1,6 +1,7 @@
 from PyQt5.QtGui import QClipboard
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton
+from PyQt5.QtGui import QIcon
 from PyQt5 import uic
 import random
 import string
@@ -8,9 +9,10 @@ import string
 class PasswordGenerator(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        
         # Load the UI file for the main window
         uic.loadUi('pass.ui', self)
+        self.setWindowIcon(QIcon("./icon/key.png"))
 
         # Connect the Generate button to the generate_password method
         self.generate.clicked.connect(self.generate_password)
@@ -23,14 +25,18 @@ class PasswordGenerator(QMainWindow):
 
         #Проверка для одного чек бокса
         if not use_digits and not use_letters and not use_symbols:
+            icon = QIcon("./icon/key.png")
             msg_box = QMessageBox()
+            msg_box.setWindowIcon(icon)
             msg_box.setIcon(QMessageBox.Warning)
             msg_box.setWindowTitle("Генератор паролей")
             msg_box.setText("Выберите хотя бы один параметр для генерации пароля.")
             msg_box.exec_()
             return
         if length == 0:
+            icon = QIcon("./icon/key.png")
             msg_box = QMessageBox()
+            msg_box.setWindowIcon(icon)
             msg_box.setIcon(QMessageBox.Warning)
             msg_box.setWindowTitle("Генератор паролей")
             msg_box.setText("Укажите количество символов для генерации.")
@@ -51,6 +57,8 @@ class PasswordGenerator(QMainWindow):
 
         # Add a "Copy" button to the message box
         msg = QMessageBox()
+        icon = QIcon("./icon/key.png")
+        msg.setWindowIcon(icon)
         msg.setIcon(QMessageBox.Information)
         msg.setText("Сгенерированный пароль:")
         msg.setInformativeText(password)
